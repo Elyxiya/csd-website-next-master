@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { CustomPageMeta, NavigationTheme } from '~~/types'
-import { ref } from 'vue'
-const active = ref<number | null>(null) 
+
 definePageMeta({
   title: '方向',
   layout: 'page',
@@ -15,7 +14,6 @@ definePageMeta({
 const directions = [
   {
     color: 'yellow',
-    //image:'~/img/background.png',
     titleColor: 'text-yellow-600',
     icon: 'game',
     iconColor: 'bg-yellow-600',
@@ -24,7 +22,6 @@ const directions = [
   },
   {
     color: 'blue',
-     //image:'~/img/background.png',
     titleColor: 'text-blue-600',
     icon: 'web',
     iconColor: 'bg-blue-600',
@@ -33,7 +30,6 @@ const directions = [
   },
   {
     color: 'green',
-    //image:'~/img/background.png',
     titleColor: 'text-green-600',
     icon: 'android',
     iconColor: 'bg-green-600',
@@ -42,7 +38,6 @@ const directions = [
   },
   {
     color: 'red',
-    //image:'~/img/background.png',
     titleColor: 'text-red-600',
     icon: 'ai',
     iconColor: 'bg-red-600',
@@ -53,8 +48,8 @@ const directions = [
 </script>
 
 <template>
-  <div style="height: 1400px;">
-    <div class="flex mb-4 text-white" style="height: 800px;">
+  <div>
+    <div class="flex mb-4 text-white">
       <div class="flex flex-col justify-center space-y-4">
         <h1 class="font-semibold text-shadow-md text-2xl">方向介绍</h1>
         <p class="text-shadow-sm">
@@ -62,130 +57,32 @@ const directions = [
         </p>
       </div>
       <img
-        class="sm:block hidden aspect-[3/3]"
+        class="sm:block hidden aspect-[4/3]"
         src="~/assets/svg/discovery.svg"
         alt=""
         srcset=""
       />
     </div>
-    <div class="shell" >
-      <div class="content">
-        <div
-          v-for="(dir,i) in directions"
-          :key="i"
-          class="item"
-          @mouseenter="active = i"
-          @mouseleave="active = null"
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div
+        v-for="dir in directions"
+        :key="dir.name"
+        class="rounded-3xl bg-white space-y-4 p-8"
+      >
+        <h3
+          :class="dir.titleColor"
+          class="text-xl"
         >
-        </div>
+          <span
+            class="text-white iconfont p-2 rounded-full mr-2 font-normal"
+            :class="['icon-' + dir.icon, `bg-${dir.color}-600`]"
+          /><span class="font-semibold">{{ dir.name }}</span>
+        </h3>
+        <p class="text-gray-600">{{ dir.desc }}</p>
+        <!-- <button 
+            :class="[`bg-${dir.color}-600`, `hover:bg-${dir.color}-700`]"
+            class=" px-3 py-2 rounded-lg">了解更多</button> -->
       </div>
     </div>
-    <transition name="fade" mode="out-in">
-      <div v-if="active !== null" class="info-panel">
-        <h3>{{ directions[active].name }}</h3>
-        <p>{{ directions[active].desc }}</p>
-      </div>
-    </transition>
   </div>
 </template>
-<style scoped lang="scss">
-.shell{
-  width: 300px;
-  height: 300px;
-  position: relative;
-  perspective: 1000px;
-  transform-origin:  center center;
-   transform: translateX(200px) translateY(100px);
-  .content{
-    display: flex;
-    width:100%;
-    height: 100%;
-    transform-origin: right right;
-    transform-style: preserve-3d;
-    animation: rotate 10s infinite linear;
-    transition: 0.5s;
-    .item{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 20px;
-        background-size: cover;
-        border-radius: 6px;
-        cursor: pointer;
-        -webkit-box-reflect: below 25px -webkit-linear-gradient(transparent 50%,rgba(255,255,255,0.3));
-         animation-play-state: paused;
-    }
-  }
-}
-.item:hover{
-  filter: drop-shadow(0 0 2em white);
-}
-.item:nth-child(1) { 
-  background-image: url('~/img/background.png');
-   background-size:cover;
-   transform: rotateY(0deg) translateZ(300px); 
-  }
-.item:nth-child(2) {
-  background-image: url('~/img/background.png');
-   background-size:cover;
-    transform: rotateY(90deg) translateZ(300px); }
-.item:nth-child(3) { 
-  background-image: url('~/img/background.png');
-  background-size:cover;
-  transform: rotateY(180deg) translateZ(300px); 
-}
-.item:nth-child(4) { 
-  background-image: url('~/img/background.png');
-   background-size:cover;
-  transform: rotateY(270deg) translateZ(300px); }
-@keyframes rotate {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-.content:hover {
-        animation-play-state: paused;
-}
-.info-panel {
-  margin-top: -200px;
-  width: 500px;
-  height: 600px;
-  padding: 20px;
-  background:#192B52;
-  animation:sweep 1.2s ease-out infinite;
-  color: #fff;
-  border-radius: 8px;
-  margin-left: 1000px;
-  text-align: center;
-  background-size: 200% 100%;
-  p,h3{
-    font-size: 30px;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    background: linear-gradient(90deg,#FFC0CB , #1E90FF, #00FFFF);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: flow 3s linear infinite;
-  }
-}
-@keyframes sweep{
-  0%  {background-position:150% 0;}
-  100%{background-position:-50% 0;}
-}
-@keyframes flow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-/* 简单的淡入淡出 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-</style>
-
