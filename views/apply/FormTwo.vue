@@ -12,7 +12,7 @@ const form = reactive<FormModel>({
   email: '',
   hadExperience: true,
   applyReason: '',
-  grade: 2,
+  grade: "大二",
   experience: '',
   direction: '',
 })

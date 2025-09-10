@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     apiToken: '',
     secretKey: '',
     public: {
-      siteKey: '',
+      apiKey: '',
     },
   },
   build: {

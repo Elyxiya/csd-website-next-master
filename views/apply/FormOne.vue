@@ -10,9 +10,9 @@ const form = reactive<FormModel>({
   email: '',
   hadExperience: false,
   applyReason: '',
-  grade: 1,
+  grade: "大一",
   experience: '',
-  direction: '',
+  direction: ' '
 })
 
 const { siteKey } = useRuntimeConfig().public

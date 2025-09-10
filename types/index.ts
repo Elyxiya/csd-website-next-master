@@ -42,7 +42,7 @@ export interface FormModel {
   email: string
   hadExperience: boolean
   applyReason: string
-  grade: number
+  grade: string
   experience: string
-  direction: 'web' | 'game' | 'ai' | 'mobile' | ''
+  direction: 'web' | 'game' | 'ai' | 'mobile' | ' ' | ''
 }

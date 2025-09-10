@@ -13,6 +13,5 @@ export const friendLinks = {
 }
 
 export const csdLocation = {
-  "大学生活动中心三楼302软件部/ ":'https://uri.amap.com/marker?position=110.415334,25.315916&name=大学生活动中心&src=mypage&coordinate=gaode&callnative=0' ,
-  "花江慧谷6号楼人工智能学院208":'https://uri.amap.com/marker?position=110.407928,25.304644&name=人工智能学院&src=mypage&coordinate=gaode&callnative=0',
+  "大学生活动中心三楼302软件部 ":'https://uri.amap.com/marker?position=110.415334,25.315916&name=大学生活动中心&src=mypage&coordinate=gaode&callnative=0' ,
 }
