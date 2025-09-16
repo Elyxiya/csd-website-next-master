@@ -8,6 +8,7 @@ const form = reactive<FormModel>({
   name: '',
   qq: '',
   email: '',
+  code:'',
   hadExperience: false,
   applyReason: '',
   grade: "大一",
@@ -17,8 +18,11 @@ const form = reactive<FormModel>({
 
 const { siteKey } = useRuntimeConfig().public
 const { handleSubmit, isLoading } = useSubmitForm(form, hcaptChaToken)
+const { isSending, getCode,countdown } = useEmit(form)
 
-
+const isAble = ()=> {
+  return countdown.value === 0
+}
 </script>
 
 <template>
@@ -34,7 +38,7 @@ const { handleSubmit, isLoading } = useSubmitForm(form, hcaptChaToken)
           <BaseInput
             v-model="form.studentId"
             :name="'studentId'"
-            :rules="'required'"
+            :rules="'required|exact10Digits'"
             class="col-span-1"
             :label="'学号'"
             :type="'number'"
@@ -64,6 +68,26 @@ const { handleSubmit, isLoading } = useSubmitForm(form, hcaptChaToken)
             :type="'text'"
           />
         </div>
+        <div class="input-row">
+            <BaseInput
+              v-model="form.code"
+              :name="'code'"
+              :rules="'required'"
+              :label="'邮箱验证码'"
+              class="col-span-1"
+              :type="'number'"
+            />
+            <div
+              :class="{ loading: isSending }"
+              :disabled="isSending"
+              class="btn-sub"
+              @click="getCode()"
+              
+            >
+              获取验证码
+            </div>
+        </div>
+        
         <BaseCheckbox
           v-model="form.hadExperience"
           :name="'hadExperience'"
@@ -73,11 +97,12 @@ const { handleSubmit, isLoading } = useSubmitForm(form, hcaptChaToken)
           v-model="form.experience"
           v-if="form.hadExperience"
           :name="'experience'"
+          :rules="'max150Chars'"
           :label="'聊聊你学过的东西，以及用来做过哪些有趣的事'"
         />
         <BaseTextarea
           v-model="form.applyReason"
-          :rules="'required'"
+          :rules="'required|max150Chars'"
           :name="'applyReason'"
           :label="'说说你为什么想加入软件部'"
         />
@@ -112,6 +137,20 @@ const { handleSubmit, isLoading } = useSubmitForm(form, hcaptChaToken)
   </div>
 </template>
 
-<style>
+<style lang="scss" >
 @import '~/style/apply-form.css';
+.btn-sub{
+  height: 60px; 
+  margin-top: 1.6667rem;
+  background-color: #4e2bcc;
+  width: 7.2917rem;
+  padding: .5208rem .5208rem;
+  border-radius: .4167rem;
+  text-align: center;
+  cursor: pointer;
+
+}
+.btn-sub:hover{
+  background-color:  #17388e;
+}
 </style>

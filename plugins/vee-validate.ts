@@ -56,3 +56,29 @@ export default defineNuxtPlugin(() => {
     return true
   })
 })
+
+
+defineRule('exact10Digits', (value:number) => {
+  
+  const strValue = value.toString();
+  
+  if (!/^\d{10}$/.test(strValue)) {
+    return '请输入正确的学号（必须是10位数字）！';
+  }
+  
+  return true;
+});
+
+defineRule('max150Chars', (value: string) => {
+
+  if (value === undefined || value === null) {
+    return true; 
+  }
+  const strValue = String(value).trim();
+  
+  if (strValue.length > 150) {
+    return `输入不能超过150个字符（当前已输入${strValue.length}个）！`;
+  }
+  
+  return true;
+});

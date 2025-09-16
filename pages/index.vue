@@ -35,6 +35,7 @@ const modules = [Pagination, Mousewheel]
     >
       <swiper-slide
         v-for="section in sections"
+        :key="section.name"
         v-slot="{ isActive }"
         class="h-full"
       >

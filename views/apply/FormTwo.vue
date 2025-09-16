@@ -10,6 +10,7 @@ const form = reactive<FormModel>({
   name: '',
   qq: '',
   email: '',
+  code:'',
   hadExperience: true,
   applyReason: '',
   grade: "大二",
@@ -19,7 +20,7 @@ const form = reactive<FormModel>({
 
 const { siteKey } = useRuntimeConfig().public
 const { isLoading, handleSubmit } = useSubmitForm(form, hcaptChaToken)
-
+const { isSending, getCode,countdown } = useEmit(form)
 const directionOptions = [
   {
     name: 'Web 开发',
@@ -54,7 +55,7 @@ const directionOptions = [
         <BaseInput
           v-model="form.studentId"
           :name="'studentId'"
-          :rules="'required'"
+          :rules="'required|exact10Digits'"
           class="col-span-1"
           :label="'学号'"
           :type="'number'"
@@ -84,6 +85,25 @@ const directionOptions = [
           :type="'text'"
         />
       </div>
+      <div class="input-row">
+            <BaseInput
+              v-model="form.code"
+              :name="'code'"
+              :rules="'required'"
+              :label="'邮箱验证码'"
+              class="col-span-1"
+              :type="'number'"
+            />
+            <div
+              :class="{ loading: isSending }"
+              :disabled="isSending"
+              class="btn-sub"
+              @click="getCode()"
+              
+            >
+              获取验证码
+            </div>
+        </div>
       <div class="input-row">
         <BaseSelect
           v-model="form.direction"
@@ -135,3 +155,20 @@ const directionOptions = [
     </div>
   </div>
 </template>
+
+<style scoped>
+
+.btn-sub{
+  height: 60px; line-height: 40px;
+  margin-top: 32px;
+  background-color: #4e2bcc;
+  width: 133px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+.btn-sub:hover{
+  background-color:  #17388e;
+}
+</style>

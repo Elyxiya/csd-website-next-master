@@ -33,8 +33,7 @@ const enrollsPost = defineEventHandler(async (event) => {
 
     return response
      } catch (error: any) {
-    console.error('内部API错误详情:', error) // 服务端日志记录真实错误
-    
+  
     // 完全隐藏原始错误信息，返回统一的错误响应
     throw createError({
       statusCode: error.statusCode || 500,
@@ -44,6 +43,8 @@ const enrollsPost = defineEventHandler(async (event) => {
         message: '提交失败，请联系管理员！',
       }
     })
+    
+    
   }
 
 })

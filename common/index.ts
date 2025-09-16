@@ -13,5 +13,5 @@ export const friendLinks = {
 }
 
 export const csdLocation = {
-  "大学生活动中心三楼302软件部 ":'https://uri.amap.com/marker?position=110.415334,25.315916&name=大学生活动中心&src=mypage&coordinate=gaode&callnative=0' ,
+  "大学生活动中心三楼301软件部 ":'https://uri.amap.com/marker?position=110.415334,25.315916&name=大学生活动中心&src=mypage&coordinate=gaode&callnative=0' ,
 }

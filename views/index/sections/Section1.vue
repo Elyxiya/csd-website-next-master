@@ -12,7 +12,10 @@ import { NavigationTheme } from '~~/types'
 const props = defineProps<{
   isActive: boolean
 }>()
-
+const isCons = () => {
+   console.log('isActive', isActive)
+   console.log('isCons')
+}
 const { isActive } = toRefs(props)
 const currentTheme = inject(ThemeKey)
 const backgroundAssets = computed(() => getBackgroundAssets(currentTheme.value))
@@ -34,6 +37,7 @@ watch(isActive, (isActiveValue) => {
     })
   }
 })
+
 </script>
 
 <template>
@@ -44,47 +48,30 @@ watch(isActive, (isActiveValue) => {
     :rotate-x-max="0.5"
     :rotate-y-max="0.5"
     class="h-full text-center relative overflow-hidden"
+    style="pointer-events: none"
   >
+
     <div
       v-for="asset in backgroundAssets"
+      :key="asset.bgClass"
       :data-atropos-offset="asset.offset"
       class="bg"
       :class="asset.bgClass"
+      style="pointer-events: none"
     />
+    
     <div
       class="absolute text-primary inset-0 grid place-content-center space-y-6 px-6"
+      style="z-index: 100; pointer-events: auto"
     >
       <h1 class="text-2xl md:text-3xl font-bold">和我们一起，探索这个世界</h1>
       <p class="md:text-lg">
         软件部致力于探索软件开发前沿，营造一个优秀的学习环境，助力个人技术能力的提升。
       </p>
-      <div class="space-x-4">
-        <BaseButton
-          class="bg-primary hover:bg-primary-lighter text-white border-2 border-transparent"
-          ><nuxt-link to="/apply">立即报名</nuxt-link></BaseButton
-        >
-        <BaseButton
-          class="bg-transparent hover:bg-[rgba(0,0,0,0.025)] border-2 border-white text-white drop-shadow"
-          ><a
-            :href="QQ_GROUP_LINK"
-            target="_blank"
-          >
-            <span class="iconfont icon-QQ mr-1"></span>加入群聊
-          </a></BaseButton
-        >
-         <BaseButton class="bg-section-primary text-white rounded-full">
-            <nuxt-link
-              to="https://oj.dsstudio.tech/problem"
-              class="flex items-center"
-              target="_blank"
-            >
-              <span class="iconfont icon-link mr-1 text-[0.8rem]" />开始练习
-            </nuxt-link>
-          </BaseButton>
-      </div>
-      <div
-        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm"
-      >
+      
+   
+      
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm">
         <div class="animate-bounce flex flex-col items-center">
           <div class="mb-1">下拉了解更多</div>
           <span class="gg-chevron-down"></span>
